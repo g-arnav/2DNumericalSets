@@ -1,4 +1,4 @@
-# To redefine the ordering function, rewrite less_than
+# To redefine the ordering function, rewrite less_than or make a new function
 
 class OrderedPair:
     def __init__(self, x, y):
@@ -23,10 +23,10 @@ class OrderedPair:
     def __eq__(self, other):
         return (self.x, self.y) == (other.x, other.y)
 
-    def less_than(self, other):
-        if self.x < other.x:
-            return True
-        elif self.x == other.x and self.y <= other.y:
-            return True
-        else:
-            return False
+def less_than(p1, p2):
+    if p1.x < p2.x:
+        return True
+    elif p1.x == p2.x and p1.y <= p2.y:
+        return True
+    else:
+        return False

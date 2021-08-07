@@ -1,14 +1,15 @@
 from Node import Node
-from Ordering import OrderedPair
+from Ordering import *
 
 class Tree:
-    def __init__(self, depth):
+    def __init__(self, depth, ordering=less_than):
         root_gen = [OrderedPair(0, 1), OrderedPair(1, 0)]
         root_gaps = [OrderedPair(-1, -1)]
         self.root = Node(root_gen, root_gaps, 0)
         self.depth = depth
         self.size = [0] * (depth + 1)
         self.build_tree(self.root)
+        self.ordering_function = ordering
 
     def build_tree(self, node):
         self.size[node.depth] += 1
@@ -39,17 +40,34 @@ class Tree:
                     queue.append(n)
         print(string)
 
-    def __repr__(self):
-        string = "Level 0 [1]: "
-        i = 0
+    def genus(self, d):
+        if d > self.depth:
+            print("Tree is not calculated at that depth")
+        string = ""
         queue = [self.root]
         while len(queue) > 0:
             current = queue.pop(0)
-            if current.depth > i:
-                i += 1
-                string = string[:-1]
-                string += "\nLevel {} [{}]: ".format(i, self.size_at(i))
-            string += " " + str(current) + ","
-            for n in current.children:
-                queue.append(n)
+            if current.depth == d:
+                string += " " + str(len(current.effective)) + ","
+            else:
+                for n in current.children:
+                    queue.append(n)
+        print(string)
+
+    def __repr__(self):
+        string = "Level 0: size 1"
+        for i in range(1, self.depth+1):
+            string += "\nLevel {}: size {}".format(i, self.size_at(i))
+        # string = "Level 0 [1]: "
+        # i = 0
+        # queue = [self.root]
+        # while len(queue) > 0:
+        #     current = queue.pop(0)
+        #     if current.depth > i:
+        #         i += 1
+        #         string = string[:-1]
+        #         string += "\nLevel {} [{}]: ".format(i, self.size_at(i))
+        #     string += " " + str(current) + ","
+        #     for n in current.children:
+        #         queue.append(n)
         return string

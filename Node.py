@@ -1,10 +1,11 @@
 class Node:
-    def __init__(self, gens, gaps, depth):
+    def __init__(self, gens, gaps, depth, ordering_func):
         self.gens = gens
         self.gaps = gaps
-        self.F = gaps[-1]
+        self.Frobenius = gaps[-1]
         self.depth = depth
-        self.effective = [g for g in gens if self.F.less_than(g)]
+        self.ordering_func = ordering_func
+        self.effective = [g for g in gens if ordering_func(self.Frobenius, g)]
         self.children = []
 
     def __repr__(self):
@@ -16,7 +17,7 @@ class Node:
             gen_prime.remove(ge)
             gaps_prime = self.gaps + [ge]
             gen_prime = self.check_gen(gen_prime, ge, gaps_prime)
-            self.children.append(Node(gen_prime, gaps_prime, self.depth+1))
+            self.children.append(Node(gen_prime, gaps_prime, self.depth+1, self.ordering_func))
 
     def check_gen(self, new_gen, ge, new_gaps):
         potential = []
