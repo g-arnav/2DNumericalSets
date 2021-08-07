@@ -13,7 +13,8 @@ To view a list of the degrees of vertices at genus g:
 
 	>>> print(t.genus(g))
 To build a tree with a different ordering function than the default:
-First, in Ordering.py, write a new ordering function that takes in 2 input points and returns True if the first point is less than the second and False otherwise, let's call this function new_ordering_function
+
+In Ordering.py, write a new ordering function that takes in 2 input points and returns True if the first point is less than the second and False otherwise, let's call this function new_ordering_function
 
 Then:
 	
