@@ -5,7 +5,7 @@ class Tree:
     def __init__(self, depth, ordering=less_than):
         root_gen = [OrderedPair(0, 1), OrderedPair(1, 0)]
         root_gaps = [OrderedPair(-1, -1)]
-        self.root = Node(root_gen, root_gaps, 0)
+        self.root = Node(root_gen, root_gaps, 0, ordering)
         self.depth = depth
         self.size = [0] * (depth + 1)
         self.build_tree(self.root)
